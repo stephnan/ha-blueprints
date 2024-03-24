@@ -14,16 +14,15 @@ blueprint:
           multiple: false
 
 mode: queued
-
-variables:
-  camera: '!input camera_device'
-  camera_name: '{{ states[camera].name }}'
-  file_name: '{{ camera_name }}_{{ now ().year }}_{{ now ().month }}_{{ now ().day }}_{{ now ().hour }}_{{ now ().minute }}.jpg'
-
-
 sequence:
+  - variables:
+      camera: !input camera_device
+      camera_name: '{{ states[camera].name }}'
+      file_name: >-
+        {{ camera_name }}_{{ now ().year }}_{{ now ().month }}_{{ now ().day
+        }}_{{ now ().hour }}_{{ now ().minute }}.jpg
   - service: camera.snapshot
-    alias: Create Snapshot
+    metadata: {}
     data:
       filename: /media/snapshots/{{ file_name }}
     target:
@@ -31,13 +30,14 @@ sequence:
   - delay:
       hours: 0
       minutes: 0
-      seconds: 10
+      seconds: 3
       milliseconds: 0
   - service: notify.homeassistant
+    metadata: {}
     data:
-      title: Picture
-      message: Picture
       data:
         photo:
-        - file: /media/snapshots/{{ file_name }}
-          capture: snapshot
+          - file: /media/snapshots/{{ file_name }}
+            capture: snapshot
+      title: Picture
+      message: Picture
