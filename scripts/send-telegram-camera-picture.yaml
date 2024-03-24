@@ -16,7 +16,9 @@ blueprint:
 mode: queued
 
 variables:
-  file_name: {{ !input camera_device }}_{{ now ().year }}_{{ now ().month }}_{{ now ().day }}_{{ now ().hour }}_{{ now ().minute }}.jpg
+  camera: !input camera_device
+  camera_name: '{{ states[camera].name }}'
+  file_name: {{ camera_name }}_{{ now ().year }}_{{ now ().month }}_{{ now ().day }}_{{ now ().hour }}_{{ now ().minute }}.jpg
 
 
 sequence:
