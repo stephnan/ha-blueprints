@@ -1,0 +1,43 @@
+blueprint:
+  name: Send Telegram Camera Picture
+  description: >-
+    Sends an Camera Picture to a defined Telegram group
+  domain: script
+  input:
+    camera_device:
+      name: Camera Device
+      description: Camera Device
+      selector:
+        entity:
+          domain:
+          - camera
+          multiple: false
+
+mode: queued
+
+variables:
+
+  file_name: {{ !input camera_device }}_{{ now ().year }}_{{ now ().month }}_{{ now ().day }}_{{
+    now ().hour }}_{{ now ().minute }}.jpg
+
+
+sequence:
+  - service: camera.snapshot
+    alias: Create Snapshot
+    data:
+      filename: /media/snapshots/{{ file_name }}
+    target:
+      entity_id: !input camera_device
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 10
+      milliseconds: 0
+  - service: notify.homeassistant
+    data:
+      title: Picture
+      message: Picture
+      data:
+        photo:
+        - file: /media/snapshots/{{ file_name }}
+          capture: snapshot
