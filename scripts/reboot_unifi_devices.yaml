@@ -1,0 +1,27 @@
+blueprint:
+  name: Reboot Unifi Devices
+  description: >-
+    Reboots selected Unifi Devices one after another
+  domain: script
+  input:
+    unifi_devices:
+      name: Unifi Device
+      description: Unifi Device
+      selector:
+        device:
+          integration: unifi
+          multiple: true
+
+repeat:
+    for_each: "{{ unifi_devices }}"
+    sequence:
+      - variables:
+          button_name: 'button.{{ states[repeat.item].name }}_restart'
+      - service: button.press
+        target:
+          entity_id: !input button_name
+      - delay:
+          hours: 0
+          minutes: 15
+          seconds: 0
+          milliseconds: 0
