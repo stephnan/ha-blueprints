@@ -12,6 +12,10 @@ blueprint:
           integration: unifi
           domain: button
           multiple: true
+
+variables:
+  unifi_devices: !input unifi_devices
+
 sequence:
   - repeat:
       for_each: "{{ unifi_devices }}"
