@@ -13,12 +13,9 @@ blueprint:
           domain: button
           multiple: true
 
-variables:
-  unifi_devices: !input unifi_devices
-
 sequence:
   - repeat:
-      for_each: "{{ unifi_devices }}"
+      for_each: !input unifi_devices
       sequence:
         - service: button.press
           target:
