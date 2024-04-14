@@ -5,21 +5,19 @@ blueprint:
   domain: script
   input:
     unifi_devices:
-      name: Unifi Device
-      description: Unifi Device
+      name: Unifi Device Restart Button
+      description: Unifi Device Restart Button
       selector:
-        device:
+        button:
           integration: unifi
           multiple: true
 sequence:
   - repeat:
       for_each: "{{ unifi_devices }}"
       sequence:
-        - variables:
-            button_name: 'button.{{ states[repeat.item].name }}_restart'
         - service: button.press
           target:
-            entity_id: !input button_name
+            entity_id: "{{ repeat.item }}"
         - delay:
             hours: 0
             minutes: 15
