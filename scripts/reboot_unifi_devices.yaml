@@ -8,8 +8,9 @@ blueprint:
       name: Unifi Device Restart Button
       description: Unifi Device Restart Button
       selector:
-        button:
+        entity:
           integration: unifi
+          domain: button
           multiple: true
 sequence:
   - repeat:
