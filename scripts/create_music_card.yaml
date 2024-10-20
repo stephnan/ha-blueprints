@@ -1,0 +1,34 @@
+blueprint:
+  name: New Musik Card
+  description: >-
+    Adds a new Musik Card
+  domain: script
+  input:
+    media_device:
+      name: Media Device
+      description: Media Device
+      selector:
+        entity:
+          domain:
+          - media_player
+          multiple: false
+    musik_name:
+      name: Musik Name
+      description: Musik Name without path but with extension
+
+mode: restart
+sequence:
+  - variables:
+      name: !media_name
+  - action: media_player.volume_set
+    data:
+      volume_level: "{{ states('input_number.lautstarke_rfid_musiksteuerung') | float }}"
+    target:
+      entity_id: !input media_device
+  - action: media_player.play_media
+    data:
+      media_content_id: http://192.168.0.189:8123/media/music/{{ name }}
+      media_content_type: music
+      enqueue: replace
+    target:
+      entity_id: !input media_device
