@@ -1,0 +1,27 @@
+blueprint:
+  name: Create Music Card automation
+  domain: automation
+  input:
+    motion_sensor:
+      name: RFID Sensor
+      description: The name of the RFID sensor
+      selector:
+        entity:
+          filter:
+            - domain: binary_sensor
+    target_script:
+      name: Script to run
+      description: The lights to keep in sync.
+      selector:
+        target:
+          entity:
+            - domain: script
+
+triggers:
+  - trigger: state
+    entity_id: !input motion_sensor
+    from: null
+    to: "on"
+
+actions:
+  - action: !input target_script
