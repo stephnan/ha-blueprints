@@ -19,7 +19,7 @@ blueprint:
 mode: restart
 sequence:
   - variables:
-      name: !media_name
+      name: !input media_name
   - action: media_player.volume_set
     data:
       volume_level: "{{ states('input_number.lautstarke_rfid_musiksteuerung') | float }}"
