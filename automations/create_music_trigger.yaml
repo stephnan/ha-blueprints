@@ -11,7 +11,7 @@ blueprint:
             - domain: binary_sensor
     target_script:
       name: Script to run
-      description: The lights to keep in sync.
+      description: Script to run
       selector:
         target:
           entity:
@@ -25,3 +25,5 @@ triggers:
 
 actions:
   - action: !input target_script
+    metadata: {}
+    data: {}
