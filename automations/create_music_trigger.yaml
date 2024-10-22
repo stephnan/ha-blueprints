@@ -11,7 +11,7 @@ blueprint:
             - domain: binary_sensor
     target_script:
       name: Script to run
-      description: Script to run
+      description: Script to run as entity
       selector:
         target:
           entity:
