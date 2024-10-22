@@ -24,6 +24,6 @@ triggers:
     to: "on"
 
 actions:
-  - action: !input target_script
+  - action: '!input target_script'
     metadata: {}
     data: {}
