@@ -39,5 +39,5 @@ sequence:
         photo:
           - file: /media/snapshots/{{ file_name }}
             capture: snapshot
-    title: Picture
-    message: Picture
+      title: Picture
+      message: Picture
