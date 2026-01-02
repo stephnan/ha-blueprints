@@ -34,9 +34,11 @@ sequence:
       milliseconds: 0
   - action: notify.send_message
     entity_id: notify.telegram_bot_645898337_19909211
+    metadata: {}
     data:
-      photo:
-        - file: /media/snapshots/{{ file_name }}
-          capture: snapshot
-    title: Picture
-    message: Picture
+      data:
+        photo:
+          - file: /media/snapshots/{{ file_name }}
+            capture: snapshot
+      title: Picture
+      message: Picture
