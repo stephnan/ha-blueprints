@@ -39,4 +39,3 @@ sequence:
       target:
         - -19909211
       file: /media/snapshots/{{ file_name }}
-      caption: {{ camera_name }}
