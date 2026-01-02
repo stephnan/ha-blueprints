@@ -32,11 +32,12 @@ sequence:
       minutes: 0
       seconds: 3
       milliseconds: 0
-  - service: notify.send_message
+  - action: notify.send_message
     entity_id: notify.telegram_bot_645898337_19909211
     data:
-      photo:
-        - file: /media/snapshots/{{ file_name }}
-          capture: snapshot
+      data:
+        photo:
+          - file: /media/snapshots/{{ file_name }}
+            capture: snapshot
     title: Picture
     message: Picture
