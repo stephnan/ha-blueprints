@@ -36,6 +36,6 @@ sequence:
     data:
       verify_ssl: true
       config_entry_id: 01JZCJFGV30T7XGAW3S1AWW2SF
-      target:
+      chat_id:
         - -19909211
       file: /media/snapshots/{{ file_name }}
