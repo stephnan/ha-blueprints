@@ -36,6 +36,6 @@ sequence:
     data:
       verify_ssl: true
       config_entry_id: 01JZCJFGV30T7XGAW3S1AWW2SF
-      chat_id:
-        - -19909211
+      entity_id:
+        - notify.telegram_bot_645898337_19909211
       file: /media/snapshots/{{ file_name }}
