@@ -8,19 +8,23 @@ blueprint:
       selector:
         entity:
           filter:
-            - domain: binary_sensor
+          - domain:
+            - binary_sensor
+          multiple: false
+          reorder: false
     target_script:
       name: Script to run
       description: Script to run as entity
       selector:
         target:
           entity:
-            - domain: script
+          - domain:
+            - script
 
 triggers:
   - trigger: state
     entity_id: !input motion_sensor
-    from: null
+    from: 
     to: "on"
 
 actions:
