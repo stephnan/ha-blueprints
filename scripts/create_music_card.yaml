@@ -1,7 +1,6 @@
 blueprint:
   name: New Musik Card
-  description: >-
-    Adds a new Musik Card
+  description: Adds a new Musik Card
   domain: script
   input:
     media_device:
@@ -16,21 +15,22 @@ blueprint:
       name: Musik Name
       description: Musik Name without path but with extension
       selector:
-        text:
-
+        text: {}
+  source_url: https://raw.githubusercontent.com/stephnan/ha-blueprints/refs/heads/main/scripts/create_music_card.yaml
 mode: restart
 sequence:
-  - variables:
-      name: !input musik_name
-  - action: media_player.volume_set
-    data:
-      volume_level: "{{ states('input_number.lautstarke_rfid_musiksteuerung') | float }}"
-    target:
-      entity_id: !input media_device
-  - action: media_player.play_media
-    data:
-      media_content_id: http://192.168.0.189:8123/media/music/{{ name }}
-      media_content_type: music
-      enqueue: replace
-    target:
-      entity_id: !input media_device
+- variables:
+    name: !input musik_name
+- action: media_player.volume_set
+  data:
+    volume_level: '{{ states(''input_number.lautstarke_rfid_musiksteuerung'') | float
+      }}'
+  target:
+    entity_id: !input media_device
+- action: media_player.play_media
+  data:
+    media_content_id: http://192.168.0.189:8123/media/music/{{ name }}
+    media_content_type: music
+    enqueue: replace
+  target:
+    entity_id: !input media_device
