@@ -1,6 +1,10 @@
 blueprint:
   name: Create Music Card automation
+  description: Startet ein Musik-Skript beim Auflegen einer RFID-Karte im Wohnzimmer,
+    sofern die RFID-Musiksteuerung aktiviert und der Fernseher ausgeschaltet ist.
   domain: automation
+  homeassistant:
+    min_version: 2024.10.0
   input:
     motion_sensor:
       name: RFID Sensor
@@ -20,13 +24,48 @@ blueprint:
           entity:
           - domain:
             - script
-
+    control_switch:
+      name: Schalter für RFID-Musiksteuerung
+      description: Schalter (input_boolean), der eingeschaltet sein muss, damit die
+        Musikkarte abgespielt wird.
+      default: input_boolean.rfid_musiksteuerung
+      selector:
+        entity:
+          filter:
+          - domain:
+            - input_boolean
+          multiple: false
+          reorder: false
+    tv_media_player:
+      name: Fernseher / Beamer
+      description: Mediaplayer des Fernsehers/Beamers – ist dieses Gerät eingeschaltet,
+        ist die Kartensteuerung gesperrt.
+      default: media_player.hisense_c2_4u630049_television
+      selector:
+        entity:
+          filter:
+          - domain:
+            - media_player
+          multiple: false
+          reorder: false
+  source_url: https://raw.githubusercontent.com/stephnan/ha-blueprints/refs/heads/main/automations/create_music_trigger.yaml
+mode: single
 triggers:
-  - trigger: state
-    entity_id: !input motion_sensor
-    from: 
-    to: "on"
-
+- trigger: state
+  entity_id: !input motion_sensor
+  not_from:
+  - unavailable
+  - unknown
+  to: 'on'
+conditions:
+- condition: state
+  entity_id: !input control_switch
+  state: 'on'
+- condition: not
+  conditions:
+  - condition: state
+    entity_id: !input tv_media_player
+    state: 'on'
 actions:
-  - action: script.turn_on
-    target: !input target_script
+- action: script.turn_on
+  target: !input target_script
